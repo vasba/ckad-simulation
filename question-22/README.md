@@ -21,7 +21,7 @@ Team Cosmos needs a complex pod setup with multiple containers. Create a Pod nam
 
 4. Add labels: `app: cosmos-app`, `tier: frontend`
 
-Save the Pod specification as `/opt/course/22/cosmos-app-pod.yaml` and verify all containers start successfully.
+Save the Pod specification as `$HOME/ckad-simulation/22/cosmos-app-pod.yaml` and verify all containers start successfully.
 
 ## Expected Answer
 
@@ -71,7 +71,7 @@ spec:
 
 2. Apply the Pod:
 ```bash
-kubectl apply -f /opt/course/22/cosmos-app-pod.yaml
+kubectl apply -f $HOME/ckad-simulation/22/cosmos-app-pod.yaml
 ```
 
 3. Verify containers:

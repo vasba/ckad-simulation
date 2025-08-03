@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# Question 11 - Working with Containers Setup
+# Question 11 - Working w# Create a Dockerfile
+cat <<EOF > $HOME/ckad-simulation/11/image/Dockerfileh Containers Setup
 # Creates the container build environment
 
 echo "Setting up Question 11 - Working with Containers exercise..."
 
 # Create the course directory
-mkdir -p /opt/course/11/image
+mkdir -p $HOME/ckad-simulation/11/image
 
 # Create a simple Golang application
-cat <<EOF > /opt/course/11/image/main.go
+cat <<EOF > $HOME/ckad-simulation/11/image/main.go
 package main
 
 import (
@@ -53,6 +54,6 @@ CMD ["./app"]
 EOF
 
 echo "Setup complete for Question 11"
-echo "Container build files created at /opt/course/11/image/"
+echo "Container build files created at $HOME/ckad-simulation/11/image/"
 echo "Dockerfile contains placeholder ENV variable that needs to be changed"
-echo "Use 'cd /opt/course/11/image && sudo docker build .' to test build"
+echo "Use 'cd $HOME/ckad-simulation/11/image && sudo docker build .' to test build"

@@ -9,7 +9,7 @@ echo "Setting up Question 18 - Ingress exercise..."
 kubectl create namespace venus --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/18
+mkdir -p $HOME/ckad-simulation/18
 
 echo "Setup complete for Question 18"
 echo "Venus namespace created"

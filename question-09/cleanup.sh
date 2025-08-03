@@ -12,6 +12,6 @@ kubectl -n pluto delete pod holy-api --ignore-not-found=true
 kubectl -n pluto delete deployment holy-api --ignore-not-found=true
 
 # Clean up the course directory
-rm -rf /opt/course/9
+rm -rf $HOME/ckad-simulation/9
 
 echo "Cleanup complete for Question 9"

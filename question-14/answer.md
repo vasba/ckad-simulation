@@ -7,7 +7,7 @@ kubectl -n moon create secret generic secret1 --from-literal=user=test --from-li
 
 2. Create Secret from existing yaml:
 ```bash
-kubectl apply -f /opt/course/14/secret2.yaml
+kubectl apply -f $HOME/ckad-simulation/14/secret2.yaml
 ```
 
 3. Edit the Pod to use both Secrets:
@@ -45,5 +45,5 @@ spec:
 
 4. Save the updated Pod configuration:
 ```bash
-kubectl get pod secret-handler -n moon -o yaml > /opt/course/14/secret-handler-new.yaml
+kubectl get pod secret-handler -n moon -o yaml > $HOME/ckad-simulation/14/secret-handler-new.yaml
 ```

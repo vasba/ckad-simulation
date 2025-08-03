@@ -9,6 +9,7 @@ echo "Cleaning up Question 2 - Pods exercise..."
 kubectl delete pod pod1 --ignore-not-found=true
 
 # Remove the created files and directories
-rm -rf /opt/course/2
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/2
 
 echo "Cleanup complete for Question 2"

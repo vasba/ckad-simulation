@@ -9,7 +9,7 @@ echo "Setting up Question 22 - Multi-container Pod exercise..."
 kubectl create namespace cosmos --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/22
+mkdir -p $HOME/ckad-simulation/22
 
 echo "Setup complete for Question 22"
 echo "Cosmos namespace created"

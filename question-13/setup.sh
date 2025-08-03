@@ -35,7 +35,7 @@ spec:
 EOF
 
 # Create the course directory
-sudo mkdir -p /opt/course/13
+mkdir -p $HOME/ckad-simulation/13
 
 echo "Setup complete for Question 13"
 echo "Note: PVC will remain Pending because provisioner 'moon-retainer' doesn't exist yet"

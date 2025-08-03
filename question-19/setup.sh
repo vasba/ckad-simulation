@@ -9,7 +9,7 @@ echo "Setting up Question 19 - Resource Requirements exercise..."
 kubectl create namespace mars --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/19
+mkdir -p $HOME/ckad-simulation/19
 
 echo "Setup complete for Question 19"
 echo "Mars namespace created"

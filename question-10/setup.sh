@@ -9,7 +9,7 @@ echo "Setting up Question 10 - Service, Logs exercise..."
 kubectl create namespace pluto --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-mkdir -p /opt/course/10
+mkdir -p $HOME/ckad-simulation/10
 
 # Create the Pod
 kubectl -n pluto run project-plt-6cc-api --image=nginx:1.17.3-alpine --labels project=plt-6cc-api

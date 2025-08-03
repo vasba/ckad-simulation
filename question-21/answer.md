@@ -42,7 +42,7 @@ spec:
 
 2. Apply the Pod:
 ```bash
-kubectl apply -f /opt/course/21/galaxy-secure-pod.yaml
+kubectl apply -f $HOME/ckad-simulation/21/galaxy-secure-pod.yaml
 ```
 
 3. Verify security context:

@@ -14,6 +14,7 @@ kubectl -n sun delete pod frontend --ignore-not-found=true
 kubectl -n sun delete pod api --ignore-not-found=true
 
 # Remove the course directory
-sudo rm -rf /opt/course/17
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/17
 
 echo "Cleanup complete for Question 17"

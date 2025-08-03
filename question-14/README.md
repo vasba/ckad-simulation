@@ -1,9 +1,9 @@
 # Question 14 | Secret, Secret-Volume, Secret-Env
 
 ## Task
-You need to make changes on an existing Pod in Namespace `moon` called `secret-handler`. Create a new Secret `secret1` which contains `user=test` and `pass=pwd`. The Secret's content should be available in Pod `secret-handler` as environment variables `SECRET1_USER` and `SECRET1_PASS`. The yaml for Pod `secret-handler` is available at `/opt/course/14/secret-handler.yaml`.
+You need to make changes on an existing Pod in Namespace `moon` called `secret-handler`. Create a new Secret `secret1` which contains `user=test` and `pass=pwd`. The Secret's content should be available in Pod `secret-handler` as environment variables `SECRET1_USER` and `SECRET1_PASS`. The yaml for Pod `secret-handler` is available at `$HOME/ckad-simulation/14/secret-handler.yaml`.
 
-There is existing yaml for another Secret at `/opt/course/14/secret2.yaml`, create this Secret and mount it inside the same Pod at `/tmp/secret2`. Your changes should be saved under `/opt/course/14/secret-handler-new.yaml`. Both Secrets should only be available in Namespace `moon`.
+There is existing yaml for another Secret at `$HOME/ckad-simulation/14/secret2.yaml`, create this Secret and mount it inside the same Pod at `/tmp/secret2`. Your changes should be saved under `$HOME/ckad-simulation/14/secret-handler-new.yaml`. Both Secrets should only be available in Namespace `moon`.
 
 ## Expected Answer
 
@@ -14,7 +14,7 @@ kubectl -n moon create secret generic secret1 --from-literal=user=test --from-li
 
 2. Create Secret from existing yaml:
 ```bash
-kubectl apply -f /opt/course/14/secret2.yaml
+kubectl apply -f $HOME/ckad-simulation/14/secret2.yaml
 ```
 
 3. Edit the Pod to use both Secrets:
@@ -52,5 +52,5 @@ spec:
 
 4. Save the updated Pod configuration:
 ```bash
-kubectl get pod secret-handler -n moon -o yaml > /opt/course/14/secret-handler-new.yaml
+kubectl get pod secret-handler -n moon -o yaml > $HOME/ckad-simulation/14/secret-handler-new.yaml
 ```

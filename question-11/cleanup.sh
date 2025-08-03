@@ -14,6 +14,6 @@ sudo podman rmi registry.killer.sh:5000/sun-cipher:v1-podman --ignore 2>/dev/nul
 sudo docker rmi registry.killer.sh:5000/sun-cipher:v1-docker --ignore 2>/dev/null
 
 # Clean up the course directory
-rm -rf /opt/course/11
+rm -rf $HOME/ckad-simulation/11
 
 echo "Cleanup complete for Question 11"

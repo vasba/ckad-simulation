@@ -9,7 +9,7 @@ echo "Setting up Question 21 - SecurityContext exercise..."
 kubectl create namespace galaxy --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/21
+mkdir -p $HOME/ckad-simulation/21
 
 echo "Setup complete for Question 21"
 echo "Galaxy namespace created"

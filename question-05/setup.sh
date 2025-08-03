@@ -15,9 +15,9 @@ kubectl apply -f serviceaccount.yaml
 kubectl apply -f secret.yaml
 
 # Create the target directory (simulate being on ckad7326)
-mkdir -p /opt/course/5
+mkdir -p $HOME/ckad-simulation/5
 
 echo "Setup complete for Question 5"
 echo "Student should:"
 echo "1. Find the secret associated with neptune-sa-v2"
-echo "2. Extract and decode the token to /opt/course/5/token"
+echo "2. Extract and decode the token to $HOME/ckad-simulation/5/token"

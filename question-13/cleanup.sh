@@ -11,7 +11,7 @@ kubectl -n moon delete pvc moon-pvc-126 --ignore-not-found=true
 # Delete the StorageClass
 kubectl delete storageclass moon-retain --ignore-not-found=true
 
-# Remove the course directory
-sudo rm -rf /opt/course/13
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/13
 
 echo "Cleanup complete for Question 13"

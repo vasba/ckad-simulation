@@ -17,7 +17,7 @@ kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl http://proj
 
 4. Save the response:
 ```bash
-kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl http://project-plt-6cc-svc.pluto:3333 > /opt/course/10/service_test.html
+kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl http://project-plt-6cc-svc.pluto:3333 > $HOME/ckad-simulation/10/service_test.html
 ```
 
 5. Get the logs:

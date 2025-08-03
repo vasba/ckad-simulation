@@ -11,7 +11,7 @@ Team Mars needs better resource management for their application. Create a Deplo
 5. Add a liveness probe checking HTTP GET on port 80, path `/` with initial delay of 30 seconds and period of 10 seconds
 6. Add a readiness probe checking HTTP GET on port 80, path `/` with initial delay of 5 seconds and period of 5 seconds
 
-Save the Deployment yaml as `/opt/course/19/mars-app-deployment.yaml` and apply it.
+Save the Deployment yaml as `$HOME/ckad-simulation/19/mars-app-deployment.yaml` and apply it.
 
 ## Expected Answer
 

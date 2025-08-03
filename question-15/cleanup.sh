@@ -11,7 +11,7 @@ kubectl -n moon delete deployment web-moon --ignore-not-found=true
 # Delete the ConfigMap
 kubectl -n moon delete configmap configmap-web-moon-html --ignore-not-found=true
 
-# Remove the course directory
-sudo rm -rf /opt/course/15
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/15
 
 echo "Cleanup complete for Question 15"

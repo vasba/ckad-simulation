@@ -8,7 +8,7 @@ kubectl -n moon describe pod <web-moon-pod-name>
 
 2. Create the ConfigMap from file:
 ```bash
-kubectl -n moon create configmap configmap-web-moon-html --from-file=index.html=/opt/course/15/web-moon.html
+kubectl -n moon create configmap configmap-web-moon-html --from-file=index.html=$HOME/ckad-simulation/15/web-moon.html
 ```
 
 3. Verify the ConfigMap:
@@ -27,4 +27,4 @@ kubectl -n moon get pods -o wide
 kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl <pod-ip>
 ```
 
-The ConfigMap will be mounted as a volume in the nginx pods, allowing them to serve the HTML content from `/opt/course/15/web-moon.html` as the default `index.html` page.
+The ConfigMap will be mounted as a volume in the nginx pods, allowing them to serve the HTML content from `$HOME/ckad-simulation/15/web-moon.html` as the default `index.html` page.

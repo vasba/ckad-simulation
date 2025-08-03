@@ -10,7 +10,8 @@ kubectl -n neptune delete serviceaccount neptune-sa-v2 --ignore-not-found=true
 kubectl -n neptune delete secret neptune-secret-1 --ignore-not-found=true
 
 # Remove the created files and directories
-rm -rf /opt/course/5
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/5
 
 # Note: We keep the neptune namespace as it might be used by other exercises
 

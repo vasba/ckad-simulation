@@ -9,7 +9,7 @@ echo "Setting up Question 20 - CronJob exercise..."
 kubectl create namespace jupiter --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/20
+mkdir -p $HOME/ckad-simulation/20
 
 echo "Setup complete for Question 20"
 echo "Jupiter namespace created"

@@ -17,7 +17,7 @@ Team Galaxy needs to enhance security for their application. Create a Pod named 
 4. Mount a temporary volume at `/tmp` and `/var/cache/nginx` for nginx to write temporary files
 5. Mount an emptyDir volume at `/var/run` for nginx runtime files
 
-Save the Pod specification as `/opt/course/21/galaxy-secure-pod.yaml` and verify it runs successfully.
+Save the Pod specification as `$HOME/ckad-simulation/21/galaxy-secure-pod.yaml` and verify it runs successfully.
 
 ## Expected Answer
 
@@ -63,7 +63,7 @@ spec:
 
 2. Apply the Pod:
 ```bash
-kubectl apply -f /opt/course/21/galaxy-secure-pod.yaml
+kubectl apply -f $HOME/ckad-simulation/21/galaxy-secure-pod.yaml
 ```
 
 3. Verify security context:

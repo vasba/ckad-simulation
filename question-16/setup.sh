@@ -9,10 +9,10 @@ echo "Setting up Question 16 - Logging sidecar exercise..."
 kubectl create namespace mercury --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/16
+mkdir -p $HOME/ckad-simulation/16
 
 # Create the original cleaner.yaml
-cat <<EOF > /opt/course/16/cleaner.yaml
+cat <<EOF > $HOME/ckad-simulation/16/cleaner.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,8 +41,8 @@ spec:
 EOF
 
 # Deploy the original cleaner deployment
-kubectl apply -f /opt/course/16/cleaner.yaml
+kubectl apply -f $HOME/ckad-simulation/16/cleaner.yaml
 
 echo "Setup complete for Question 16"
-echo "File created: /opt/course/16/cleaner.yaml"
+echo "File created: $HOME/ckad-simulation/16/cleaner.yaml"
 echo "Deployment 'cleaner' created in namespace 'mercury'"

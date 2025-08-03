@@ -9,13 +9,13 @@ echo "Setting up Question 3 - Job exercise..."
 kubectl create namespace neptune --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the target directory (simulate being on ckad7326)
-mkdir -p /opt/course/3
+mkdir -p $HOME/ckad-simulation/3
 
 # Copy the job template to the expected location
-cp job.yaml /opt/course/3/job.yaml
+cp job.yaml $HOME/ckad-simulation/3/job.yaml
 
 echo "Setup complete for Question 3"
 echo "Student should:"
-echo "1. Review the job.yaml template at /opt/course/3/job.yaml"
-echo "2. Create the job using: kubectl -f /opt/course/3/job.yaml create"
+echo "1. Review the job.yaml template at $HOME/ckad-simulation/3/job.yaml"
+echo "2. Create the job using: kubectl -f $HOME/ckad-simulation/3/job.yaml create"
 echo "3. Check job status with: kubectl -n neptune get job,pod"

@@ -9,6 +9,7 @@ echo "Cleaning up Question 19 - Resource Requirements exercise..."
 kubectl -n mars delete deployment mars-app --ignore-not-found=true
 
 # Remove the course directory
-sudo rm -rf /opt/course/19
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/19
 
 echo "Cleanup complete for Question 19"

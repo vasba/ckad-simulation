@@ -9,6 +9,7 @@ echo "Cleaning up Question 21 - SecurityContext exercise..."
 kubectl -n galaxy delete pod galaxy-secure --ignore-not-found=true
 
 # Remove the course directory
-sudo rm -rf /opt/course/21
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/21
 
 echo "Cleanup complete for Question 21"

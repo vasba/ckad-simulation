@@ -3,7 +3,7 @@
 1. Check the existing deployment:
 ```bash
 kubectl -n mercury get deployment cleaner
-cat /opt/course/16/cleaner.yaml
+cat $HOME/ckad-simulation/16/cleaner.yaml
 ```
 
 2. Edit the deployment to add the sidecar container:
@@ -43,7 +43,7 @@ spec:
 
 3. Apply the changes:
 ```bash
-kubectl apply -f /opt/course/16/cleaner-new.yaml
+kubectl apply -f $HOME/ckad-simulation/16/cleaner-new.yaml
 ```
 
 4. Check the logs:

@@ -33,5 +33,5 @@ kubectl -n moon describe pvc moon-pvc-126
 
 4. Write the event message:
 ```bash
-kubectl -n moon describe pvc moon-pvc-126 | grep -A 10 Events: > /opt/course/13/pvc-126-reason
+kubectl -n moon describe pvc moon-pvc-126 | grep -A 10 Events: > $HOME/ckad-simulation/13/pvc-126-reason
 ```

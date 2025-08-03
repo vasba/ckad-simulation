@@ -25,5 +25,5 @@ sudo podman run -d --name sun-cipher registry.killer.sh:5000/sun-cipher:v1-podma
 
 5. Get logs:
 ```bash
-sudo podman logs sun-cipher > /opt/course/11/logs
+sudo podman logs sun-cipher > $HOME/ckad-simulation/11/logs
 ```

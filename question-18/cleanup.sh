@@ -16,7 +16,7 @@ kubectl -n venus delete service venus-api-svc --ignore-not-found=true
 kubectl -n venus delete pod venus-app --ignore-not-found=true
 kubectl -n venus delete pod venus-api --ignore-not-found=true
 
-# Remove the course directory
-sudo rm -rf /opt/course/18
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/18
 
 echo "Cleanup complete for Question 18"

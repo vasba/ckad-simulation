@@ -9,7 +9,8 @@ echo "Cleaning up Question 3 - Job exercise..."
 kubectl -n neptune delete job neb-new-job --ignore-not-found=true
 
 # Remove the created files and directories
-rm -rf /opt/course/3
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/3
 
 # Note: We keep the neptune namespace as it might be used by other exercises
 

@@ -9,10 +9,10 @@ echo "Setting up Question 15 - ConfigMap, Configmap-Volume exercise..."
 kubectl create namespace moon --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/15
+mkdir -p $HOME/ckad-simulation/15
 
 # Create the web-moon.html file
-cat <<EOF > /opt/course/15/web-moon.html
+cat <<EOF > $HOME/ckad-simulation/15/web-moon.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,5 +58,5 @@ spec:
 EOF
 
 echo "Setup complete for Question 15"
-echo "File created: /opt/course/15/web-moon.html"
+echo "File created: $HOME/ckad-simulation/15/web-moon.html"
 echo "Deployment 'web-moon' created but will fail until ConfigMap is created"

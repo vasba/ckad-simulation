@@ -12,6 +12,6 @@ kubectl create namespace mars --dry-run=client -o yaml | kubectl apply -f -
 kubectl create namespace shell-intern --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the target directory (simulate being on ckad5601)
-mkdir -p /opt/course/1
+mkdir -p $HOME/ckad-simulation/1
 
 echo "Setup complete for Question 1"

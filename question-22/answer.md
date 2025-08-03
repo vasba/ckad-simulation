@@ -46,7 +46,7 @@ spec:
 
 2. Apply the Pod:
 ```bash
-kubectl apply -f /opt/course/22/cosmos-app-pod.yaml
+kubectl apply -f $HOME/ckad-simulation/22/cosmos-app-pod.yaml
 ```
 
 3. Verify containers:

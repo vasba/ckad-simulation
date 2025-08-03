@@ -9,7 +9,7 @@ echo "Setting up Question 9 - Pod -> Deployment exercise..."
 kubectl create namespace pluto --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-mkdir -p /opt/course/9
+mkdir -p $HOME/ckad-simulation/9
 
 # Create the original holy-api Pod
 cat <<EOF | kubectl apply -f -
@@ -49,7 +49,7 @@ spec:
 EOF
 
 # Create the Pod template file
-cat <<EOF > /opt/course/9/holy-api-pod.yaml
+cat <<EOF > $HOME/ckad-simulation/9/holy-api-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -87,5 +87,5 @@ EOF
 
 echo "Setup complete for Question 9"
 echo "Pod holy-api created in pluto namespace"
-echo "Pod template available at /opt/course/9/holy-api-pod.yaml"
+echo "Pod template available at $HOME/ckad-simulation/9/holy-api-pod.yaml"
 echo "Use 'kubectl -n pluto get pod holy-api' to see the Pod"

@@ -9,10 +9,10 @@ echo "Setting up Question 14 - Secret, Secret-Volume, Secret-Env exercise..."
 kubectl create namespace moon --dry-run=client -o yaml | kubectl apply -f -
 
 # Create the course directory
-sudo mkdir -p /opt/course/14
+mkdir -p $HOME/ckad-simulation/14
 
 # Create the original Pod yaml
-cat <<EOF > /opt/course/14/secret-handler.yaml
+cat <<EOF > $HOME/ckad-simulation/14/secret-handler.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -26,7 +26,7 @@ spec:
 EOF
 
 # Create secret2.yaml for the exercise
-cat <<EOF > /opt/course/14/secret2.yaml
+cat <<EOF > $HOME/ckad-simulation/14/secret2.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -38,9 +38,9 @@ data:
 EOF
 
 # Create the original Pod
-kubectl apply -f /opt/course/14/secret-handler.yaml
+kubectl apply -f $HOME/ckad-simulation/14/secret-handler.yaml
 
 echo "Setup complete for Question 14"
 echo "Files created:"
-echo "  - /opt/course/14/secret-handler.yaml"
-echo "  - /opt/course/14/secret2.yaml"
+echo "  - $HOME/ckad-simulation/14/secret-handler.yaml"
+echo "  - $HOME/ckad-simulation/14/secret2.yaml"

@@ -12,7 +12,7 @@ kubectl -n moon delete pod secret-handler --ignore-not-found=true
 kubectl -n moon delete secret secret1 --ignore-not-found=true
 kubectl -n moon delete secret secret2 --ignore-not-found=true
 
-# Remove the course directory
-sudo rm -rf /opt/course/14
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/14
 
 echo "Cleanup complete for Question 14"

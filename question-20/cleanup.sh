@@ -11,7 +11,7 @@ kubectl -n jupiter delete cronjob jupiter-backup --ignore-not-found=true
 # Delete any manually created jobs
 kubectl -n jupiter delete job jupiter-backup-manual --ignore-not-found=true
 
-# Remove the course directory
-sudo rm -rf /opt/course/20
+# Clean up the course directory
+rm -rf $HOME/ckad-simulation/20
 
 echo "Cleanup complete for Question 20"
