@@ -1,0 +1,11 @@
+NAME              STATUS   AGE
+default           Active   116d
+earth             Active   19s
+jupiter           Active   19s
+kube-node-lease   Active   116d
+kube-public       Active   116d
+kube-system       Active   116d
+linkerd           Active   109d
+linkerd-viz       Active   109d
+mars              Active   19s
+shell-intern      Active   19s
