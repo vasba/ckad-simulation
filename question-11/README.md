@@ -11,32 +11,3 @@ There are files to build a container image located at `$HOME/ckad-simulation/11/
 4. Run a container using `sudo podman`, which keeps running detached in the background, named `sun-cipher` using image `registry.killer.sh:5000/sun-cipher:v1-podman`
 5. Write the logs your container `sun-cipher` produces into `$HOME/ckad-simulation/11/logs`
 
-## Expected Answer
-
-1. Modify the Dockerfile:
-```bash
-# Change ENV SUN_CIPHER_ID=<value> to:
-ENV SUN_CIPHER_ID=5b9c1065-e39d-4a43-a04a-e59bcea3e03f
-```
-
-2. Build with Docker:
-```bash
-sudo docker build -t registry.killer.sh:5000/sun-cipher:v1-docker .
-sudo docker push registry.killer.sh:5000/sun-cipher:v1-docker
-```
-
-3. Build with Podman:
-```bash
-sudo podman build -t registry.killer.sh:5000/sun-cipher:v1-podman .
-sudo podman push registry.killer.sh:5000/sun-cipher:v1-podman
-```
-
-4. Run container:
-```bash
-sudo podman run -d --name sun-cipher registry.killer.sh:5000/sun-cipher:v1-podman
-```
-
-5. Get logs:
-```bash
-sudo podman logs sun-cipher > $HOME/ckad-simulation/11/logs
-```
