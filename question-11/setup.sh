@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Question 11 - Working w# Create a Dockerfile
-cat <<EOF > $HOME/ckad-simulation/11/image/Dockerfileh Containers Setup
+# Question 11 - Working with Containers Setup
 # Creates the container build environment
 
 echo "Setting up Question 11 - Working with Containers exercise..."
@@ -38,7 +37,7 @@ func main() {
 EOF
 
 # Create Dockerfile
-cat <<EOF > /opt/course/11/image/Dockerfile
+cat <<EOF > $HOME/ckad-simulation/11/image/Dockerfile
 # build container stage 1
 FROM docker.io/library/golang:1.15.15-alpine3.14
 WORKDIR /src
