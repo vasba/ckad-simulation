@@ -1,7 +1,7 @@
 # Question 11 | Working with Containers
 
 ## Task
-There are files to build a container image located at `$HOME/ckad-simulation/11/image`. The container will run a Golang application which outputs information to stdout. You're asked to perform the following tasks:
+There are files to build a container image located at `$HOME/ckad-simulation/11/image`. The container will run a Python application which outputs information to stdout. You're asked to perform the following tasks:
 
 ℹ️ Run all Docker and Podman commands as user root. Use `sudo docker` and `sudo podman` or become root with `sudo -i`
 

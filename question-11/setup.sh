@@ -1,55 +1,41 @@
 #!/bin/bash
 
 # Question 11 - Working with Containers Setup
-# Creates the container build environment
+# Creates the container build environment for Python application
 
 echo "Setting up Question 11 - Working with Containers exercise..."
 
 # Create the course directory
 mkdir -p $HOME/ckad-simulation/11/image
 
-# Create a simple Golang application
-cat <<EOF > $HOME/ckad-simulation/11/image/main.go
-package main
+# Create a simple Python application
+cat <<EOF > $HOME/ckad-simulation/11/image/app.py
+import os
+import time
+import random
+from datetime import datetime
 
-import (
-    "fmt"
-    "os"
-    "time"
-    "math/rand"
-)
+def main():
+    cipher_id = os.environ.get('SUN_CIPHER_ID', 'default-cipher-id')
+    
+    while True:
+        random_num = random.randint(0, 9999)
+        timestamp = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        print(f"{timestamp} random number for {cipher_id} is {random_num}")
+        time.sleep(1)
 
-func main() {
-    cipherID := os.Getenv("SUN_CIPHER_ID")
-    if cipherID == "" {
-        cipherID = "default-cipher-id"
-    }
-    
-    rand.Seed(time.Now().UnixNano())
-    
-    for {
-        randomNum := rand.Intn(10000)
-        fmt.Printf("%s random number for %s is %d\\n", 
-            time.Now().Format("2006/01/02 15:04:05"), cipherID, randomNum)
-        time.Sleep(1 * time.Second)
-    }
-}
+if __name__ == "__main__":
+    main()
 EOF
 
 # Create Dockerfile
 cat <<EOF > $HOME/ckad-simulation/11/image/Dockerfile
-# build container stage 1
-FROM docker.io/library/golang:1.15.15-alpine3.14
-WORKDIR /src
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/app .
-
-# app container stage 2
-FROM docker.io/library/alpine:3.12.4
-COPY --from=0 /src/bin/app app
+FROM docker.io/library/python:3.9-alpine
+WORKDIR /app
+COPY app.py .
 # CHANGE NEXT LINE
 ENV SUN_CIPHER_ID=placeholder-value
-CMD ["./app"]
+CMD ["python", "app.py"]
 EOF
 
 echo "Setup complete for Question 11"
