@@ -1,0 +1,14 @@
+# Invalid values file
+image:
+  repository: "nonexistent/image"
+  tag: "invalid-tag-format!"
+  pullPolicy: InvalidPolicy
+
+service:
+  type: InvalidServiceType
+  port: "not-a-number"
+
+resources:
+  limits:
+    cpu: "invalid-cpu-format"
+    memory: "999ZB"

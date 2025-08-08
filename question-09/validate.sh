@@ -54,8 +54,8 @@ else
 fi
 
 # Check if security context is configured
-allowPrivilegeEscalation=$(kubectl get deploy holy-api -n pluto -o jsonpath='{.spec.template.spec.securityContext.allowPrivilegeEscalation}')
-privileged=$(kubectl get deploy holy-api -n pluto -o jsonpath='{.spec.template.spec.securityContext.privileged}')
+allowPrivilegeEscalation=$(kubectl get deploy holy-api -n pluto -o jsonpath='{.spec.template.spec.containers[*].securityContext.allowPrivilegeEscalation}')
+privileged=$(kubectl get deploy holy-api -n pluto -o jsonpath='{.spec.template.spec.containers[*].securityContext.privileged}')
 
 if [[ "$allowPrivilegeEscalation" == "false" ]]; then
     echo "✅ PASS: allowPrivilegeEscalation is set to false"

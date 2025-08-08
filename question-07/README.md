@@ -5,3 +5,4 @@ The board of Team Neptune decided to take over control of one e-commerce webserv
 
 Search for the correct Pod in Namespace `saturn` and move it to Namespace `neptune`. It doesn't matter if you shut it down and spin it up again, it probably hasn't any customers anyways.
 
+Save the moved pod specification into webserver.yaml

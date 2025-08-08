@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "nonexistent-registry.invalid/broken-app:v1.0.0"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REQUIRED_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: missing-secret-that-does-not-exist
+              key: password
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1
+          timeoutSeconds: 1
+          failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /health  
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1
+          timeoutSeconds: 1
+          failureThreshold: 1

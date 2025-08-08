@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Chart.Name }}-pre-install"
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: pre-install
+        image: busybox:1.35
+        command: 
+        - /bin/sh
+        - -c
+        - |
+          echo "Starting pre-install hook..."
+          echo "This job will hang indefinitely to create pending-install state"
+          sleep 3600
+      # No activeDeadlineSeconds so job runs forever

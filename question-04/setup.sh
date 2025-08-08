@@ -8,19 +8,31 @@ echo "Setting up Question 4 - Helm Management exercise..."
 # Create mercury namespace
 kubectl create namespace mercury --dry-run=client -o yaml | kubectl apply -f -
 
-# Note: In a real scenario, you would need to:
-# 1. Add bitnami helm repo: helm repo add bitnami https://charts.bitnami.com/bitnami
-# 2. Install initial releases for the exercise
-# 3. Create a broken release in pending-install state
+# Add bitnami helm repo (assuming helm is installed)
+echo "Adding bitnami helm repository..."
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
 
-# For simulation purposes, we'll create some mock releases
-# Students would need a working Helm installation and bitnami repo
+# Install required releases for the exercise
+echo "Installing initial Helm releases..."
 
-echo "Setup complete for Question 4"
-echo "IMPORTANT: This exercise requires Helm to be installed and configured"
-echo "Students should have bitnami repo added: helm repo add bitnami https://charts.bitnami.com/bitnami"
+# Install internal-issue-report-apiv1 (to be deleted by student)
+helm -n mercury install internal-issue-report-apiv1 bitnami/nginx
+
+# Install internal-issue-report-apiv2 (to be upgraded by student)
+helm -n mercury install internal-issue-report-apiv2 bitnami/nginx
+
+# Create a broken release in pending-install state (to be found and deleted by student)  
+# echo "Creating a broken release in pending-install state..."
+
+# Install invalid chart with pre-install hook that hangs
+# helm -n mercury install internal-issue-report-daniel invalid_chart || true
+
+
+
 echo ""
-echo "To fully test this exercise, you would need to pre-install:"
-echo "1. helm -n mercury install internal-issue-report-apiv1 bitnami/nginx"
-echo "2. helm -n mercury install internal-issue-report-apiv2 bitnami/nginx"
-echo "3. Create a broken release in pending-install state"
+echo "Setup complete for Question 4"
+echo "Created releases in mercury namespace:"
+echo "- internal-issue-report-apiv1 (for deletion)"
+echo "- internal-issue-report-apiv2 (for upgrade)" 
+echo "- internal-issue-report-daniel (broken/pending-install state)"

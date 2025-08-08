@@ -13,6 +13,7 @@ helm -n mercury uninstall internal-issue-report-daniel --ignore-not-found 2>/dev
 
 # Delete any remaining kubernetes resources
 kubectl -n mercury delete all --all --ignore-not-found=true
+kubectl delete ns mercury --ignore-not-found=true
 
 # Note: We keep the mercury namespace as it might be used by other exercises
 

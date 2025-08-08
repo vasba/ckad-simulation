@@ -18,7 +18,7 @@ kubectl -n saturn run webserver-sat-004 --image=nginx:1.16.1-alpine
 kubectl -n saturn run webserver-sat-005 --image=nginx:1.16.1-alpine
 kubectl -n saturn run webserver-sat-006 --image=nginx:1.16.1-alpine
 
-# Create the target pod with annotation
+# Create the target pod with annotation and system label
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
@@ -29,6 +29,7 @@ metadata:
     description: "this is the server for the E-Commerce System my-happy-shop"
   labels:
     id: webserver-sat-003
+    system: my-happy-shop
 spec:
   containers:
   - image: nginx:1.16.1-alpine
@@ -38,6 +39,6 @@ spec:
 EOF
 
 echo "Setup complete for Question 7"
-echo "Created pods in saturn namespace with my-happy-shop annotation"
+echo "Created pods in saturn namespace with my-happy-shop annotation and system label"
 echo "Use 'kubectl -n saturn get pods --show-labels' to see all pods"
 echo "Use 'kubectl -n saturn describe pod webserver-sat-003' to find the target"
