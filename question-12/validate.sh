@@ -70,16 +70,17 @@ else
     exit 1
 fi
 
-# Check if Pod earth-project exists in earth namespace
-if kubectl get pod earth-project -n earth &>/dev/null; then
-    echo "✅ PASS: Pod earth-project exists in earth namespace"
+# Check if Pod from project-earthflower deployment exists in earth namespace
+pod_name=$(kubectl get pods -n earth -l app=project-earthflower -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
+if [[ -n "$pod_name" ]]; then
+    echo "✅ PASS: Pod from project-earthflower deployment exists in earth namespace ($pod_name)"
 else
-    echo "❌ FAIL: Pod earth-project not found in earth namespace"
+    echo "❌ FAIL: Pod from project-earthflower deployment not found in earth namespace"
     exit 1
 fi
 
 # Check if Pod uses the PVC
-pod_pvc=$(kubectl get pod earth-project -n earth -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}')
+pod_pvc=$(kubectl get pod "$pod_name" -n earth -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}')
 if [[ "$pod_pvc" == *"earth-project-earthflower-pvc"* ]]; then
     echo "✅ PASS: Pod uses the correct PVC"
 else
@@ -88,7 +89,7 @@ else
 fi
 
 # Check if Pod has volume mount
-volume_mount=$(kubectl get pod earth-project -n earth -o jsonpath='{.spec.containers[0].volumeMounts[*].mountPath}')
+volume_mount=$(kubectl get pod "$pod_name" -n earth -o jsonpath='{.spec.containers[0].volumeMounts[*].mountPath}')
 if [[ -n "$volume_mount" ]]; then
     echo "✅ PASS: Pod has volume mount configured ($volume_mount)"
 else
