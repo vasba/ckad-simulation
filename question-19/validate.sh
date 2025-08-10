@@ -49,10 +49,10 @@ else
     exit 1
 fi
 
-if [[ "$cpu_request" == "100m" ]]; then
-    echo "✅ PASS: CPU request is correct (100m)"
+if [[ "$cpu_request" == "200m" ]]; then
+    echo "✅ PASS: CPU request is correct (200m)"
 else
-    echo "❌ FAIL: CPU request is wrong ($cpu_request), expected 100m"
+    echo "❌ FAIL: CPU request is wrong ($cpu_request), expected 200m"
     exit 1
 fi
 
@@ -67,10 +67,10 @@ else
     exit 1
 fi
 
-if [[ "$cpu_limit" == "200m" ]]; then
-    echo "✅ PASS: CPU limit is correct (200m)"
+if [[ "$cpu_limit" == "500m" ]]; then
+    echo "✅ PASS: CPU limit is correct (500m)"
 else
-    echo "❌ FAIL: CPU limit is wrong ($cpu_limit), expected 200m"
+    echo "❌ FAIL: CPU limit is wrong ($cpu_limit), expected 500m"
     exit 1
 fi
 
