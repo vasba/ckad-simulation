@@ -31,26 +31,37 @@ else
     exit 1
 fi
 
-# Check if pod has 2 containers (cleaner-con and log-reader)
-container_count=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[*].name}' | wc -w)
-if [[ "$container_count" == "2" ]]; then
-    echo "✅ PASS: Pod has 2 containers (sidecar pattern)"
+# Check if pod has 2 containers (cleaner-con and logger-con) - check both containers and initContainers
+regular_containers=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[*].name}')
+init_containers=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[*].name}')
+sidecar_containers=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[?(@.restartPolicy=="Always")].name}')
+
+# Count total containers (regular + sidecar initContainers)
+regular_count=$(echo "$regular_containers" | wc -w)
+sidecar_count=$(echo "$sidecar_containers" | wc -w)
+total_count=$((regular_count + sidecar_count))
+
+if [[ "$total_count" == "2" ]]; then
+    echo "✅ PASS: Pod has 2 containers (sidecar pattern) - $regular_count regular + $sidecar_count sidecar"
 else
-    echo "❌ FAIL: Pod has $container_count containers, expected 2"
+    echo "❌ FAIL: Pod has $total_count containers ($regular_count regular + $sidecar_count sidecar), expected 2"
     exit 1
 fi
 
-# Check container names
-containers=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[*].name}')
-if [[ "$containers" == *"cleaner-con"* ]] && [[ "$containers" == *"log-reader"* ]]; then
-    echo "✅ PASS: Pod has correct container names (cleaner-con, log-reader)"
+# Check container names (both regular containers and sidecar initContainers)
+all_containers="$regular_containers $sidecar_containers"
+if [[ "$all_containers" == *"cleaner-con"* ]] && [[ "$all_containers" == *"logger-con"* ]]; then
+    echo "✅ PASS: Pod has correct container names (cleaner-con, logger-con)"
 else
-    echo "❌ FAIL: Pod does not have correct container names, found: $containers"
+    echo "❌ FAIL: Pod does not have correct container names, found: $all_containers"
     exit 1
 fi
 
-# Check if busybox:1.31.0 image is used for cleaner-con
+# Check if busybox:1.31.0 image is used for cleaner-con (check both containers and initContainers)
 cleaner_image=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="cleaner-con")].image}')
+if [[ -z "$cleaner_image" ]]; then
+    cleaner_image=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[?(@.name=="cleaner-con")].image}')
+fi
 if [[ "$cleaner_image" == "busybox:1.31.0" ]]; then
     echo "✅ PASS: cleaner-con is using correct image (busybox:1.31.0)"
 else
@@ -58,12 +69,15 @@ else
     exit 1
 fi
 
-# Check if nginx:1.21.1-alpine image is used for log-reader
-log_reader_image=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="log-reader")].image}')
-if [[ "$log_reader_image" == "nginx:1.21.1-alpine" ]]; then
-    echo "✅ PASS: log-reader is using correct image (nginx:1.21.1-alpine)"
+# Check if busybox:1.31.0 image is used for logger-con (check both containers and initContainers)
+logger_image=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="logger-con")].image}')
+if [[ -z "$logger_image" ]]; then
+    logger_image=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[?(@.name=="logger-con")].image}')
+fi
+if [[ "$logger_image" == "busybox:1.31.0" ]]; then
+    echo "✅ PASS: logger-con is using correct image (busybox:1.31.0)"
 else
-    echo "❌ FAIL: log-reader is using wrong image ($log_reader_image), expected nginx:1.21.1-alpine"
+    echo "❌ FAIL: logger-con is using wrong image ($logger_image), expected busybox:1.31.0"
     exit 1
 fi
 
@@ -76,9 +90,15 @@ else
     exit 1
 fi
 
-# Check if both containers have volume mounts
+# Check if both containers have volume mounts (check both containers and initContainers)
 cleaner_mounts=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="cleaner-con")].volumeMounts[*].mountPath}')
-log_reader_mounts=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="log-reader")].volumeMounts[*].mountPath}')
+if [[ -z "$cleaner_mounts" ]]; then
+    cleaner_mounts=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[?(@.name=="cleaner-con")].volumeMounts[*].mountPath}')
+fi
+logger_mounts=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.containers[?(@.name=="logger-con")].volumeMounts[*].mountPath}')
+if [[ -z "$logger_mounts" ]]; then
+    logger_mounts=$(kubectl get pod "$pod_name" -n mercury -o jsonpath='{.spec.initContainers[?(@.name=="logger-con")].volumeMounts[*].mountPath}')
+fi
 
 if [[ -n "$cleaner_mounts" ]]; then
     echo "✅ PASS: cleaner-con has volume mounts: $cleaner_mounts"
@@ -87,10 +107,10 @@ else
     exit 1
 fi
 
-if [[ -n "$log_reader_mounts" ]]; then
-    echo "✅ PASS: log-reader has volume mounts: $log_reader_mounts"
+if [[ -n "$logger_mounts" ]]; then
+    echo "✅ PASS: logger-con has volume mounts: $logger_mounts"
 else
-    echo "❌ FAIL: log-reader does not have volume mounts"
+    echo "❌ FAIL: logger-con does not have volume mounts"
     exit 1
 fi
 
