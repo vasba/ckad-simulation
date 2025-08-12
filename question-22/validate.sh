@@ -30,13 +30,13 @@ else
 fi
 
 # Check init container
-init_container_name=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[0].name}')
-init_container_image=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[0].image}')
+init_container_name=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-init")].name}')
+init_container_image=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-init")].image}')
 
 if [[ "$init_container_name" == "cosmos-init" ]]; then
     echo "✅ PASS: Init container has correct name (cosmos-init)"
 else
-    echo "❌ FAIL: Init container has wrong name ($init_container_name), expected cosmos-init"
+    echo "❌ FAIL: Init container with name cosmos-init not found"
     exit 1
 fi
 
@@ -48,20 +48,64 @@ else
 fi
 
 # Check if init container has volume mount
-init_volume_mounts=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[0].volumeMounts[*].name}')
-if [[ "$init_volume_mounts" == *"shared-data"* ]]; then
-    echo "✅ PASS: Init container has shared-data volume mount"
+init_volume_mounts=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-init")].volumeMounts[*].name}')
+if [[ "$init_volume_mounts" == *"shared"* ]]; then
+    echo "✅ PASS: Init container has shared volume mount"
 else
-    echo "❌ FAIL: Init container does not have shared-data volume mount"
+    echo "❌ FAIL: Init container does not have shared volume mount"
     exit 1
 fi
 
-# Check main containers (should be 2: cosmos-main and cosmos-sidecar)
-container_count=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[*].name}' | wc -w)
-if [[ "$container_count" == "2" ]]; then
-    echo "✅ PASS: Pod has 2 main containers"
+# Check for second init container (cosmos-sidecar)
+init_container_count=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[*].name}' | wc -w)
+if [[ "$init_container_count" == "2" ]]; then
+    echo "✅ PASS: Pod has 2 init containers"
 else
-    echo "❌ FAIL: Pod has $container_count main containers, expected 2"
+    echo "❌ FAIL: Pod has $init_container_count init containers, expected 2"
+    exit 1
+fi
+
+sidecar_init_name=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-sidecar")].name}')
+sidecar_init_image=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-sidecar")].image}')
+
+if [[ "$sidecar_init_name" == "cosmos-sidecar" ]]; then
+    echo "✅ PASS: Second init container has correct name (cosmos-sidecar)"
+else
+    echo "❌ FAIL: Init container with name cosmos-sidecar not found"
+    exit 1
+fi
+
+if [[ "$sidecar_init_image" == "busybox:1.31.0" ]]; then
+    echo "✅ PASS: Second init container is using correct image (busybox:1.31.0)"
+else
+    echo "❌ FAIL: Second init container is using wrong image ($sidecar_init_image), expected busybox:1.31.0"
+    exit 1
+fi
+
+# Check if second init container has volume mount
+sidecar_init_volume_mounts=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-sidecar")].volumeMounts[*].name}')
+if [[ "$sidecar_init_volume_mounts" == *"shared"* ]]; then
+    echo "✅ PASS: Second init container has shared volume mount"
+else
+    echo "❌ FAIL: Second init container does not have shared volume mount"
+    exit 1
+fi
+
+# Check sidecar init container restart policy
+sidecar_restart_policy=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.initContainers[?(@.name=="cosmos-sidecar")].restartPolicy}')
+if [[ "$sidecar_restart_policy" == "Always" ]]; then
+    echo "✅ PASS: Sidecar init container has restart policy Always"
+else
+    echo "❌ FAIL: Sidecar init container has restart policy ($sidecar_restart_policy), expected Always"
+    exit 1
+fi
+
+# Check main containers (should be 1: cosmos-main)
+container_count=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[*].name}' | wc -w)
+if [[ "$container_count" == "1" ]]; then
+    echo "✅ PASS: Pod has 1 main container"
+else
+    echo "❌ FAIL: Pod has $container_count main containers, expected 1"
     exit 1
 fi
 
@@ -83,24 +127,6 @@ else
     exit 1
 fi
 
-# Check cosmos-sidecar container
-sidecar_container_name=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[?(@.name=="cosmos-sidecar")].name}')
-sidecar_container_image=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[?(@.name=="cosmos-sidecar")].image}')
-
-if [[ "$sidecar_container_name" == "cosmos-sidecar" ]]; then
-    echo "✅ PASS: Sidecar container has correct name (cosmos-sidecar)"
-else
-    echo "❌ FAIL: Sidecar container not found or has wrong name"
-    exit 1
-fi
-
-if [[ "$sidecar_container_image" == "busybox:1.31.0" ]]; then
-    echo "✅ PASS: Sidecar container is using correct image (busybox:1.31.0)"
-else
-    echo "❌ FAIL: Sidecar container is using wrong image ($sidecar_container_image), expected busybox:1.31.0"
-    exit 1
-fi
-
 # Check environment variable in main container
 app_name_env=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[?(@.name=="cosmos-main")].env[?(@.name=="APP_NAME")].value}')
 if [[ "$app_name_env" == "cosmos-application" ]]; then
@@ -112,28 +138,20 @@ fi
 
 # Check shared volume
 volumes=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.volumes[*].name}')
-if [[ "$volumes" == *"shared-data"* ]]; then
-    echo "✅ PASS: Pod has shared-data volume"
+if [[ "$volumes" == *"shared"* ]]; then
+    echo "✅ PASS: Pod has shared volume"
 else
-    echo "❌ FAIL: Pod does not have shared-data volume"
+    echo "❌ FAIL: Pod does not have shared volume"
     exit 1
 fi
 
-# Check if main containers have volume mounts to shared volume
+# Check if main container has volume mount to shared volume
 main_volume_mounts=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[?(@.name=="cosmos-main")].volumeMounts[*].name}')
-sidecar_volume_mounts=$(kubectl get pod cosmos-app -n cosmos -o jsonpath='{.spec.containers[?(@.name=="cosmos-sidecar")].volumeMounts[*].name}')
 
-if [[ "$main_volume_mounts" == *"shared-data"* ]]; then
-    echo "✅ PASS: Main container has shared-data volume mount"
+if [[ "$main_volume_mounts" == *"shared"* ]]; then
+    echo "✅ PASS: Main container has shared volume mount"
 else
-    echo "❌ FAIL: Main container does not have shared-data volume mount"
-    exit 1
-fi
-
-if [[ "$sidecar_volume_mounts" == *"shared-data"* ]]; then
-    echo "✅ PASS: Sidecar container has shared-data volume mount"
-else
-    echo "❌ FAIL: Sidecar container does not have shared-data volume mount"
+    echo "❌ FAIL: Main container does not have shared volume mount"
     exit 1
 fi
 
