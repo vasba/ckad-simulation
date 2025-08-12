@@ -10,6 +10,7 @@ Team Jupiter needs a scheduled backup job. Create a CronJob named `jupiter-backu
 5. Set `failedJobsHistoryLimit` to 1
 6. Job should complete within 60 seconds (set `activeDeadlineSeconds`)
 7. Job should not restart on failure (`restartPolicy: Never`)
+8. Container name 'backup'
 
 Create the CronJob and trigger it manually to test.
 
