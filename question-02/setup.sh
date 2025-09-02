@@ -9,6 +9,3 @@ echo "Setting up Question 2 - Pods exercise..."
 mkdir -p $HOME/ckad-simulation/2
 
 echo "Setup complete for Question 2"
-echo "Student should:"
-echo "1. Create pod1 using: kubectl create -f pod1.yaml"
-echo "2. Create status command script at $HOME/ckad-simulation/2/pod1-status-command.sh"

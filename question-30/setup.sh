@@ -5,9 +5,6 @@ echo "Setting up environment for Question 30..."
 # Create namespace if it doesn't exist
 kubectl get namespace earth >/dev/null 2>&1 || kubectl create namespace earth
 
-# Create directory for the ticket file
-mkdir -p /opt/course/30
-
 # Create a problematic deployment (with wrong readiness probe port)
 cat <<EOF | kubectl apply -f -
 apiVersion: apps/v1

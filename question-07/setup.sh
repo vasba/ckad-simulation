@@ -39,6 +39,3 @@ spec:
 EOF
 
 echo "Setup complete for Question 7"
-echo "Created pods in saturn namespace with my-happy-shop annotation and system label"
-echo "Use 'kubectl -n saturn get pods --show-labels' to see all pods"
-echo "Use 'kubectl -n saturn describe pod webserver-sat-003' to find the target"

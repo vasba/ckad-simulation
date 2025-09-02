@@ -18,6 +18,3 @@ kubectl apply -f secret.yaml
 mkdir -p $HOME/ckad-simulation/5
 
 echo "Setup complete for Question 5"
-echo "Student should:"
-echo "1. Find the secret associated with neptune-sa-v2"
-echo "2. Extract and decode the token to $HOME/ckad-simulation/5/token"

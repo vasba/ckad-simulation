@@ -58,5 +58,3 @@ spec:
 EOF
 
 echo "Setup complete for Question 15"
-echo "File created: $HOME/ckad-simulation/15/web-moon.html"
-echo "Deployment 'web-moon' created but will fail until fixed"

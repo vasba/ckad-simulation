@@ -15,7 +15,3 @@ mkdir -p $HOME/ckad-simulation/3
 cp job.yaml $HOME/ckad-simulation/3/job.yaml
 
 echo "Setup complete for Question 3"
-echo "Student should:"
-echo "1. Review the job.yaml template at $HOME/ckad-simulation/3/job.yaml"
-echo "2. Create the job using: kubectl -f $HOME/ckad-simulation/3/job.yaml create"
-echo "3. Check job status with: kubectl -n neptune get job,pod"

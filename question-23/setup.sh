@@ -42,9 +42,3 @@ spec:
 EOF
 
 echo "Setup complete for Question 23"
-echo "Student should:"
-echo "1. Edit the deployment file at $HOME/ckad-simulation/23/test-init-container.yaml"
-echo "2. Add an InitContainer named 'init-con' using busybox:1.31.0"
-echo "3. InitContainer should create index.html with 'check this out!' content"
-echo "4. Apply the deployment with: kubectl apply -f $HOME/ckad-simulation/23/test-init-container.yaml"
-echo "5. Test with: kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl [POD_IP]"

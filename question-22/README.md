@@ -19,6 +19,7 @@ Team Cosmos needs a complex pod setup with multiple containers. Create a Pod nam
    - Mount the same emptyDir volume at `/shared`
 
 4. Add labels: `app: cosmos-app`, `tier: frontend`
+5. Mounted volumes should have name `shared`
 
 Save the Pod specification as `$HOME/ckad-simulation/22/cosmos-app-pod.yaml` and verify all containers start successfully.
 

@@ -29,6 +29,3 @@ kubectl -n neptune set image deployment api-new-c32 nginx=ngnix:1.16.3 --record
 sleep 10
 
 echo "Setup complete for Question 8"
-echo "Deployment api-new-c32 has been created with a broken rollout"
-echo "Use 'kubectl -n neptune get deploy,pod | grep api-new-c32' to see the issue"
-echo "Use 'kubectl -n neptune rollout history deploy api-new-c32' to see history"

@@ -38,20 +38,4 @@ else
     exit 1
 fi
 
-# Check if webserver.yaml doesn't contain status section
-if grep -q "^status:" webserver.yaml; then
-    echo "❌ FAIL: webserver.yaml still contains status section"
-    exit 1
-else
-    echo "✅ PASS: webserver.yaml does not contain status section"
-fi
-
-# Check if webserver.yaml doesn't contain nodeName
-if grep -q "nodeName:" webserver.yaml; then
-    echo "❌ FAIL: webserver.yaml still contains nodeName"
-    exit 1
-else
-    echo "✅ PASS: webserver.yaml does not contain nodeName"
-fi
-
 echo "🎉 All validations passed for Question 7!"

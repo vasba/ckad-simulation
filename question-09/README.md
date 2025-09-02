@@ -8,4 +8,3 @@ Convert the Pod into a Deployment named `holy-api` with 3 replicas and delete th
 In addition, the new Deployment should set `allowPrivilegeEscalation: false` and `privileged: false` for the security context on container level.
 
 Please create the Deployment and save its yaml under `holy-api-deployment.yaml`.
-

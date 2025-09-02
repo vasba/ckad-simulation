@@ -39,6 +39,3 @@ CMD ["python", "app.py"]
 EOF
 
 echo "Setup complete for Question 11"
-echo "Container build files created at $HOME/ckad-simulation/11/image/"
-echo "Dockerfile contains placeholder ENV variable that needs to be changed"
-echo "Use 'cd $HOME/ckad-simulation/11/image && sudo docker build .' to test build"

@@ -12,5 +12,3 @@ kubectl create namespace earth --dry-run=client -o yaml | kubectl apply -f -
 sudo mkdir -p /Volumes/Data
 
 echo "Setup complete for Question 12"
-echo "Namespace 'earth' created and host directory '/Volumes/Data' prepared"
-echo "Students should now create: PV, PVC, and Deployment as per task requirements"

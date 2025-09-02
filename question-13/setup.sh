@@ -12,4 +12,3 @@ kubectl create namespace moon --dry-run=client -o yaml | kubectl apply -f -
 mkdir -p $HOME/ckad-simulation/13
 
 echo "Setup complete for Question 13"
-echo "Student should create StorageClass 'moon-retain' and PVC 'moon-pvc-126'"

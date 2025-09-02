@@ -32,7 +32,3 @@ helm -n mercury install internal-issue-report-apiv2 bitnami/nginx
 
 echo ""
 echo "Setup complete for Question 4"
-echo "Created releases in mercury namespace:"
-echo "- internal-issue-report-apiv1 (for deletion)"
-echo "- internal-issue-report-apiv2 (for upgrade)" 
-echo "- internal-issue-report-daniel (broken/pending-install state)"
